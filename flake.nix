@@ -1,21 +1,24 @@
 {
-  description = "Kotlin + Maven in a dev environment";
+  description = "Antithesis Kotlin SDK Example";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-
-  outputs = { self, nixpkgs }: {
-    devShells.default = nixpkgs.lib.mkShell {
-      buildInputs = with nixpkgs.legacyPackages.${builtins.currentSystem}; [
-        openjdk21        # or openjdk17 if you prefer
-        maven
-        kotlin            # Add Kotlin to the devShell environment
-      ];
-
-      shellHook = ''
-        export JAVA_HOME=${nixpkgs.legacyPackages.${builtins.currentSystem}.openjdk21}
-        export KOTLIN_HOME=${nixpkgs.legacyPackages.${builtins.currentSystem}.kotlin}
-        echo "Dev shell ready with Java, Maven, and Kotlin"
-      '';
-    };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    flake-utils.url = "github:numtide/flake-utils";
   };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            jdk17  # or jdk21 if you want newer
+            maven
+            kotlin
+          ];
+
+          JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";
+        };
+      });
 }
