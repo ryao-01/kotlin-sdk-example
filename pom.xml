@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.antithesis</groupId>
+  <artifactId>kotlin-antithesis-app</artifactId>
+  <version>1.0.0</version>
+  <name>Kotlin app using Antithesis SDK</name>
+  <description>This application uses Antithesis SDK for Kotlin.</description>
+  
+  <dependencies>
+   <!-- Kotlin Standard Library -->
+    <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>1.8.0</version>
+    </dependency>
+    
+    <!-- Antithesis SDK dependencies -->
+    <dependency>
+        <groupId>com.antithesis</groupId>
+        <artifactId>ffi</artifactId>
+        <version>1.4.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.antithesis</groupId>
+        <artifactId>sdk</artifactId>
+        <version>1.4.2</version>
+    </dependency>
+
+    <!-- Jackson -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.2.3</version>
+    </dependency>
+</dependencies>
+
+
+  <build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <plugins>
+      <!-- Kotlin Plugin -->
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>1.8.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Maven Exec Plugin for Running the App -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <mainClass>AppKt</mainClass> <!-- Use AppKt to run the Kotlin file -->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
