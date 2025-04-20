@@ -18,7 +18,8 @@
             kotlin
           ];
 
-          JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";
+          JAVA_HOME = "${pkgs.jdk17}"; 
+          #JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";
         };
       });
 }
